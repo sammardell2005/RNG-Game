@@ -18,7 +18,7 @@ while true do
 			local PowerLevel = ItemInformation.PowerLevel
 			local ImageID = ItemInformation.ImageID
 
-			for FirstCount = 1, PlayerInformation.UnlockedPages do -- 2 is the amount of pages the player has
+			for FirstCount = 1, PlayerInformation.UnlockedPages do
 				local Page = ArtifactsHolder["Page"..FirstCount]
 				if Page:FindFirstChild(Slot) then
 					local CurrentSlot = Page:FindFirstChild(Slot)
@@ -60,17 +60,7 @@ while true do
 				ArtifactsHolder:FindFirstChild("Page"..Count).Visible = true
 			end
 		end
-		
-		--if TotalStats and TotalStats.Value ~= "null" and TotalStats.Value ~= nil and TotalStats.Value ~= "" then
-		--	local TotalStatsValue = HttpService:JSONDecode(TotalStats.Value)
-		--	PlayerStats.Text = "Max HP".." : "..tostring(TotalStatsValue.MaxHealth).."\n"
-		--	PlayerStats.Text = PlayerStats.Text.."Max MP".." : "..tostring(TotalStatsValue.MaxMana).."\n"
-		--	PlayerStats.Text = PlayerStats.Text.."Defense".." : "..tostring(TotalStatsValue.Defense).."\n"
-		--	PlayerStats.Text = PlayerStats.Text.."Speed".." : "..tostring(TotalStatsValue.Speed).."\n"
-		--end
 		Debug = false
 	end
 	wait(0.1)
 end
-
--- 

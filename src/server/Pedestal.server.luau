@@ -37,7 +37,7 @@ game.ReplicatedStorage.RemoteEvents.Pedestal.UnEquipArtifact.OnServerEvent:Conne
 		local Slot = v.Name
 		table.insert(UsedSlots, Slot)
 	end
-	for FirstCount = 1, 2 do -- 2 is the amount of pages the player has
+	for FirstCount = 1, 2 do -- Change the 2 to the amount of pages the player has
 		for SecondCount = 1, 16 do
 			if not table.find(UsedSlots, "P"..FirstCount.."ArtifactSlot"..SecondCount) then
 				local Pedestals = game.Workspace.PlayerBases:FindFirstChild(Player.Name).Pedestals

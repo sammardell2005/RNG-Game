@@ -6,15 +6,18 @@ local function CoolDown(Player, PlayerStats, Artifact)
 	game.ReplicatedStorage.RemoteEvents.PopUp:FireClient(Player, Artifact) -- PopUp 
 	wait(PlayerStats.SearchCoolDown) -- Players CoolDown
 	PlayerStats.Searching = false
-	Player.Information.PlayerStats.Value = HttpService:JSONEncode(PlayerStats)
+	Player.Information.PlayerStats.Value = HttpService:JSONEncode(PlayerStats) -- Put before cooldown
 end
 
 game.ReplicatedStorage.RemoteEvents.Search.OnServerEvent:Connect(function(Player)
+	-- Starts Cooldown
+	-- Roll between 1 and 10000
 	local PlayerStats = HttpService:JSONDecode(Player.Information.PlayerStats.Value)
 	
 	if PlayerStats.Searching == false then
 		PlayerStats.Searching = true
 		Player.Information.PlayerStats.Value = HttpService:JSONEncode(PlayerStats)
+		-- Searching
 		repeat
 			local ArtifactsTable = {}
 			local Roll = math.random(1,10000)
@@ -41,16 +44,16 @@ game.ReplicatedStorage.RemoteEvents.Search.OnServerEvent:Connect(function(Player
 			end
 			if #ArtifactsTable >= 1 then -- If 1 or more Artifacts Exist In That Tier
 				local Roll = math.random(1, #ArtifactsTable)
+				-- Go through Artifacts table and roll between the amount of artifacts that are in it
 				
 				local UsedSlots = {}
 				for i, v in pairs(Player.ArtifactInventory:GetChildren()) do
 					local Slot = v.Name
 					table.insert(UsedSlots, Slot)
 				end
-				--local Roll = math.random(1,10000)
+				-- local Roll = math.random(1,10000)
 				-- Check if player has an artifact equipped that gives chance for a higher power
 				-- Add in the chance to add +1 Power
-                
 				local NewInformation = Artifacts[ArtifactsTable[Roll]]
 				for FirstCount = 1, PlayerStats.UnlockedPages do
 					for SecondCount = 1, 16 do
@@ -70,6 +73,7 @@ game.ReplicatedStorage.RemoteEvents.Search.OnServerEvent:Connect(function(Player
 				print(Tier)
 				print("Reroll")
 			end
-		until #ArtifactsTable >= 1
+		until #ArtifactsTable >= 1 
+		-- Searching
 	end
 end)

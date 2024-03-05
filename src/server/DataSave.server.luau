@@ -6,7 +6,8 @@ local HttpService = game:GetService("HttpService")
 local Artifacts = require(game.ReplicatedStorage.ModuleScripts.Artifacts)
 local Materials = require(game.ReplicatedStorage.ModuleScripts.Materials)
 
-local PlayerPortals = game.Workspace.PlayerPortals
+local Portals = game.Workspace.Portals
+local PlayerPortals = Portals.PlayerPortals
 local PlayerBases = game.Workspace.PlayerBases
 
 local BasePortalColour = Color3.fromRGB(99, 95, 98)
@@ -172,7 +173,7 @@ game.Players.PlayerAdded:Connect(function(Player)
 		end
 		local NewPlayerBase = PlayerBases:FindFirstChild("PlayerBase")
 		NewPlayerBase.Name = Player.Name
-		for i, v in pairs(NewPlayerBase["Home Portal"].Colour:GetChildren()) do -- Change Portal Colour
+		for i, v in pairs(NewPlayerBase["Hub Portal"].Colour:GetChildren()) do -- Change Portal Colour
 			v.Color = Color3.fromRGB(unpack(BaseStats.PortalColour))
 		end
 		
@@ -230,7 +231,7 @@ game.Players.PlayerRemoving:Connect(function(Player)
 		-- Player Base
 		local PlayerBase = PlayerBases:FindFirstChild(Player.Name)
 		PlayerBase.Name = "PlayerBase"
-		for i, v in pairs(PlayerBase["Home Portal"].Colour:GetChildren()) do
+		for i, v in pairs(PlayerBase["Hub Portal"].Colour:GetChildren()) do
 			v.Color = BasePortalColour
 		end
 	else
