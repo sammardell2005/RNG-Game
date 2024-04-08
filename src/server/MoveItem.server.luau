@@ -1,16 +1,25 @@
 local HTTPService = game:GetService("HttpService")
 
 local function DefineSlots(Player, SelectedSlot, RecievingSlot)
+	local Inventory = Player.Information.Inventory
 	local SelectedItem
-	local RecievingItem
-	for i, v in pairs(Player.ArtifactInventory:GetChildren()) do
-		local Slot = HTTPService:JSONDecode(v.Value).Slot
-		if Slot == SelectedSlot then
-			SelectedItem = v
-		elseif Slot == RecievingSlot then
-			RecievingItem = v
-		end
+	if Inventory:FindFirstChild(SelectedSlot) then
+		SelectedItem = Inventory[SelectedSlot]
 	end
+	local RecievingItem
+	
+	if Inventory:FindFirstChild(RecievingSlot) then
+		RecievingItem = Inventory[RecievingSlot]
+	end
+	
+	--for i, v in pairs(Player.ArtifactInventory:GetChildren()) do
+	--	local Slot = HTTPService:JSONDecode(v.Value).Slot
+	--	if Slot == SelectedSlot then
+	--		SelectedItem = v
+	--	elseif Slot == RecievingSlot then
+	--		RecievingItem = v
+	--	end
+	--end
 	return SelectedItem, RecievingItem
 end
 
@@ -37,7 +46,7 @@ local function SwapSlots(Player, SelectedSlot, SelectedItem, SelectedItemInfo, R
 		RecievingItem.Value = HTTPService:JSONEncode(RecievingItemInfo)
 		RecievingItem.Name = SelectedSlot
 	end
-	game.ReplicatedStorage.RemoteEvents.MoveItem:FireClient(Player, RecievingSlot, SelectedItemInfo) -- Figure out what this does then write it here
+	game.ReplicatedStorage.RemoteEvents.MoveItem:FireClient(Player, RecievingSlot, SelectedItemInfo) -- Fires to ReplaceDraggable Item
 end
 
 
